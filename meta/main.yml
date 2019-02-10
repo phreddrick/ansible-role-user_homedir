@@ -1,5 +1,6 @@
 ---
 galaxy_info:
+  role_name: user-homedir
   author: phreddrick
   description: Install a user with a nice set of dotfiles/configuration scripts for your home directory
   license: license (BSD, MIT)

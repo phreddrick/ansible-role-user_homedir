@@ -19,7 +19,7 @@
   group:
     name: "{{ user.group }}"
     state: present
-  when: create_account == true
+  when: create_account
 
 - name: "Install user {{ user.name }}"
   user:
@@ -27,11 +27,11 @@
     createhome: true
     comment: "{{ user.fullname }}"
     uid: "{{ user.uid | default(omit) }}"
-    group: "{{ user.group}}"
+    group: "{{ user.group }}"
     groups: "{{ grps }}"
     shell: /bin/bash
     password: "{{ user.password }}"
-  when: create_account == true
+  when: create_account
 
 - name: "Make sure user {{ user.name }} exists"
   user:
