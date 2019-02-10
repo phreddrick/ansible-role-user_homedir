@@ -1,0 +1,84 @@
+#!/bin/bash
+# {{ ansible_managed }}
+if [ -r /etc/bashrc ]; then
+  source /etc/bashrc
+fi
+
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+if [[ $(uname -s) == "FreeBSD" || $(uname -s) == "Darwin" ]]; then
+  alias ls='ls -G'
+else
+  alias ls='ls --color=auto'
+fi
+if [[ -n $(type -p tree) ]]; then
+  alias tree='tree -C'
+fi
+
+alias h=history
+
+export LESS=-r
+
+#
+# Helper function for adding a new entry to the beginning or end of an existing
+# path environment variable. Duplicate entries will not be added. Example usage:
+# export PATH=$(add_path $PATH "/path/to/append")
+# export MANPATH=$(add_path "/path/to/prepend" $MANPATH)
+#
+
+function add_path()
+{
+  if [[ "$1" != *":"* ]]; then
+    # $1 is a single entry.  Prepend it to $2.
+    # Return "$1:$2" if $1 is not already a substring of $2, else return $2.
+    if [[ -z "$2" ]]; then
+      echo "$1"
+    elif [[ ":$2:" != *":$1:"* ]]; then
+      echo "$1:$2"
+    else
+      echo "$2"
+    fi
+  else
+    # $2 is a single entry (hopefully :). Append it to $1.
+    # Return "$1:$2" if $2 is not already a substring of $1, else return $1.
+    if [[ -z "$1" ]]; then
+      echo "$2"
+    elif [[ ":$1:" != *":$2:"* ]]; then
+      echo "$1:$2"
+    else
+      echo "$1"
+    fi
+  fi
+}
+
+
+if [[ -e "$HOME/.bash_colors" ]]; then
+  source $HOME/.bash_colors
+fi
+
+if [[ -e "$HOME/.bash_gitprompt" && ${BASH_VERSINFO[0]} > 2 ]]; then
+  source $HOME/.bash_gitprompt
+else
+  export PS1='\[\e[0;32m\]\u@\h\[\e[m\][\[\e[1;34m\]\W\[\e[m\]]\[\e[1;32m\]\$\[\e[m\] '
+fi
+
+if [[ -d $HOME/configs/scripts ]]; then
+  export PATH=$(add_path "$HOME/configs/scripts" $PATH)
+fi
+
+export PATH=$(add_path $PATH "/usr/sbin:/sbin")
+
+function molecule(){
+    docker run --rm -it -v $(pwd):/tmp/$(basename "${PWD}"):ro -v /var/run/docker.sock:/var/run/docker.sock -w /tmp/$(basename "${PWD}") {{ molecule_image }}  sudo molecule "$@" 
+}
+
+# Location specific aliases and functions
+if [[ -e $HOME/.bashrc_{{ location_bashrc }} ]]; then
+  source $HOME/.bashrc_{{ location_bashrc }}
+fi
+
+# User specific aliases and functions
+if [[ -e $HOME/.bashrc_local ]]; then
+  source $HOME/.bashrc_local
+fi

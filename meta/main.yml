@@ -1,0 +1,27 @@
+---
+galaxy_info:
+  author: phreddrick
+  description: Install a user with a nice set of dotfiles/configuration scripts for your home directory
+  license: license (BSD, MIT)
+  min_ansible_version: 2.4
+  platforms:
+    - name: EL
+      versions:
+        - all
+    - name: Fedora
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+
+  galaxy_tags:
+    - management
+    - system
+    - user
+    - users
+
+dependencies: []

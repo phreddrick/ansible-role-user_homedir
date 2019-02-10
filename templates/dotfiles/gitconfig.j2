@@ -1,0 +1,39 @@
+# Note, to fix the email setting for work, set the environment variables
+# GIT_AUTHOR_EMAIL and GIT_COMMITTER_EMAIL in the .bashrc_local file.
+[user]
+	email = {{ user.email }}
+	name = {{ user.fullname }}
+
+[credential "https://github.com"]
+	username = {{ user.gituser }}
+
+#[credential]
+#	helper = /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
+
+[color]
+	ui = true
+
+[push]
+	default = simple
+
+[alias]
+	lgs = log --abbrev-commit --oneline --graph --decorate
+	lgr = log --abbrev-commit --oneline --all --decorate --graph
+	st = status
+        ci = commit
+        br = branch
+        co = checkout
+        df = diff
+        dc = diff --cached
+        lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all
+	ls = ls-files
+	ign = ls-files -o -i --exclude-standard
+
+#[merge]
+#tool = splice
+
+#[mergetool "splice"]
+#cmd = "gvim -f $BASE $LOCAL $REMOTE $MERGED -c 'SpliceInit'"
+#trustExitCode = true
+
+

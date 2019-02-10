@@ -1,0 +1,6 @@
+---
+# Extra groups to make the user a system user
+system_groups_all:
+  - adm
+  - cdrom
+  - wheel

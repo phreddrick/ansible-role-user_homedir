@@ -1,0 +1,97 @@
+---
+# tasks file for user-homedir
+- name: Include Ubuntu vars
+  include_vars: ubuntu.yml
+  when: ansible_os_family == "Debian"
+
+- name: Include CentOS vars
+  include_vars: centos.yml
+  when: ansible_os_family == "RedHat"
+
+- name: "add create groups variable for {{ user.name }}"
+  set_fact: grps="{{ grps }} + [ '{{ item }}' ]"
+  with_items: "{{ user.extra_groups }}"
+
+- name: "add system_groups to {{ user.name }}"
+  set_fact: grps="{{ system_groups_all }}"
+
+- name: "Create group {{ user.group }}"
+  group:
+    name: "{{ user.group }}"
+    state: present
+  when: create_account == true
+
+- name: "Install user {{ user.name }}"
+  user:
+    name: "{{ user.name }}"
+    createhome: true
+    comment: "{{ user.fullname }}"
+    uid: "{{ user.uid | default(omit) }}"
+    group: "{{ user.group}}"
+    groups: "{{ grps }}"
+    shell: /bin/bash
+    password: "{{ user.password }}"
+  when: create_account == true
+
+- name: "Make sure user {{ user.name }} exists"
+  user:
+    name: "{{ user.name }}"
+  register: realuser
+
+- debug: var=realuser
+
+- name: Copy dotfiles files
+  copy:
+    owner: "{{ realuser.name }}"
+    group: "{{ realuser.group }}"
+    src: "{{ item }}"
+    dest: "{{ realuser.home }}/.{{ item | basename }}"
+    mode: "u=rw,g=r,o=r"
+  with_fileglob:
+    - "{{ role_path }}/files/dotfiles/*"
+
+- name: "create dotfiles from templates"
+  template:
+    owner: "{{ realuser.name }}"
+    group: "{{ realuser.group }}"
+    src: "{{ item }}"
+    dest: "{{ realuser.home }}/.{{ ((item | basename) | splitext)[0] }}"
+    mode: "u=rw,g=r,o=r"
+  with_fileglob:
+    - "{{ role_path }}/templates/dotfiles/*.j2"
+
+- name: Create configs/backups directory
+  file:
+    owner: "{{ realuser.name }}"
+    group: "{{ realuser.group }}"
+    path: "{{ realuser.home }}/configs/backups"
+    state: directory
+    mode: "u=rwx,g=rx,o=rx"
+
+- name: "Setup configs/backups dir"
+  copy:
+    owner: "{{ realuser.name }}"
+    group: "{{ realuser.group }}"
+    src: "{{ item }}"
+    dest: "{{ realuser.home }}/configs/backups/{{ item | basename }}"
+    mode: "u=rw,g=r,o=r"
+  with_fileglob:
+    - "{{ role_path }}/files/backups/*"
+
+- name: Create configs/scripts directory
+  file:
+    owner: "{{ realuser.name }}"
+    group: "{{ realuser.group }}"
+    path: "{{ realuser.home }}/configs/scripts"
+    state: directory
+    mode: "u=rwx,g=rx,o=rx"
+
+- name: "Setup configs/scripts dir"
+  copy:
+    owner: "{{ realuser.name }}"
+    group: "{{ realuser.group }}"
+    src: "{{ item }}"
+    dest: "{{ realuser.home }}/configs/scripts/{{ item | basename }}"
+    mode: "u=rwx,g=rx,o=rx"
+  with_fileglob:
+    - "{{ role_path }}/files/scripts/*"
