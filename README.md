@@ -1,5 +1,7 @@
-user-homedir
+Ansible Role: user-homedir
 =========
+
+[![Build Status](https://travis-ci.org/phreddrick/ansible-role-user-homedir.svg?branch=master)](https://travis-ci.org/phreddrick/ansible-role-user-homedir)
 
 Create a user on the system complete with a nice set of bash dotfiles
 
