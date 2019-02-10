@@ -80,4 +80,4 @@ BSD
 Author Information
 ------------------
 
-[Steven Jorgensen](mailto: phreddrick@gmail.com).
+Steven Jorgensen <phreddrick@gmail.com>
