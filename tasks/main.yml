@@ -38,8 +38,6 @@
     name: "{{ user.name }}"
   register: realuser
 
-- debug: var=realuser
-
 - name: Copy dotfiles files
   copy:
     owner: "{{ realuser.name }}"
