@@ -1,20 +1,28 @@
 ---
 # defaults file for user-homedir
 
-# Should we create the user account?  Defaults to false
+# Should we create the user account?  Defaults to true
 create_account: true
 
 # Setup basic user information
 user:
+  # Account name
   name: tryme
+  # Encrypted account password
   password: '*'
+  # Account default group
   group: tryme
+  # account email, will be used in setting up .gitconfig
   email: tryme@example.com
+  # account full name, will be used in setting up .gitconfig and GECOS field
   fullname: Your Name
+  # the github account name to use (inside .gitconfig)
   gituser: tryme
+  # Add the user to the system groups, so they can sudo and other system tasks
   systemgroups: true
-  # only set this if you want a specific UID
+  # only set this if you want a specific UID, defaults to adduser mechanism
   # uid:
+  # Add user to the list of extra_groups.
   extra_groups: []
 
 # name of location based bashrc file to source (home/work/cloud/etc)
