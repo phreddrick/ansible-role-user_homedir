@@ -24,7 +24,7 @@ def test_home_dir(host):
     ("screenrc"),
 ])
 def test_home_dir_files(host, name):
-    print "checking '" + name + "'"
+    print("checking '"+name+"'")
     f = host.file('/home/tryme/.'+name)
     assert f.is_file
     assert f.user == 'tryme'
