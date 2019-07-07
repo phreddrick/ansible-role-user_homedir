@@ -69,6 +69,13 @@ fi
 
 export PATH=$(add_path $PATH "/usr/sbin:/sbin")
 
+if type -p go > /dev/null; then
+  if [ -n "$GOPATH" ] && [ ! -d "$GOPATH/bin" ] ; then
+    mkdir -p $GOPATH/{pkg,src,bin}
+  fi
+  export PATH=$(add_path $PATH "$GOPATH/bin")
+fi
+
 function molecule(){
     docker run --rm -it -v $(pwd):/tmp/$(basename "${PWD}"):ro -v /var/run/docker.sock:/var/run/docker.sock -w /tmp/$(basename "${PWD}") {{ molecule_image }}  sudo molecule "$@" 
 }

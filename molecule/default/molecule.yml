@@ -8,8 +8,16 @@ lint:
 platforms:
   - name: user_homedir_centos7
     image: centos:7
+  - name: golang_user_homedir_centos7
+    image: centos:7
+    groups:
+      - golang
   - name: user_homedir_ubuntu1804
     image: ubuntu:18.04
+  - name: golang_user_homedir_ubuntu1804
+    image: ubuntu:18.04
+    groups:
+      - golang
   - name: user_homedir_ubuntu1604
     image: ubuntu:16.04
   - name: user_homedir_ubuntu1404

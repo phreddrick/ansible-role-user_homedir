@@ -3,3 +3,33 @@
   hosts: all
   roles:
     - role: phreddrick.user-homedir
+- name: Converge Go
+  hosts: golang
+  roles:
+    - role: gantsign.golang
+      golang_gopath: '$HOME/workspace-go'
+  tasks:
+    - name: "explicitly source /home/tryme/.bashrc"
+      shell: source /etc/profile && source /home/tryme/.bashrc && ls /home/tryme/workspace-go
+      args:
+        executable: /bin/bash
+        creates: /home/tryme/workspace-go
+      become: true
+      become_user: tryme
+
+    - name: "See if /home/tryme/workspace-go gets created"
+      stat:
+        path: "/home/tryme/workspace-go/bin"
+      become: true
+      become_user: tryme
+      register: st
+
+    - name: "explicitly fail if dir doesn't exist"
+      fail:
+        msg: "/home/bin/tryme/workspace-go/bin does not exist, but should"
+      when: st.stat.isdir is not defined
+
+    - name: "explicitly fail if link isn't a dir"
+      fail:
+        msg: "/home/bin/tryme/workspace-go/bin is not a dir, but should be"
+      when: st.stat.isdir is defined and not st.stat.isdir|bool
