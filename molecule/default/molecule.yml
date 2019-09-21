@@ -22,6 +22,14 @@ platforms:
     image: ubuntu:16.04
   - name: user_homedir_ubuntu1404
     image: ubuntu:14.04
+  - name: user_homedir_debianjessie
+    image: debian:jessie
+  - name: user_homedir_debianstretch
+    image: debian:stretch
+  - name: user_homedir_debianbuster
+    image: debian:buster
+  - name: user_homedir_debianbullseye
+    image: debian:bullseye
 provisioner:
   name: ansible
   lint:
