@@ -25,7 +25,7 @@ script:
   - molecule --debug create || /bin/true
   - molecule converge
   - molecule idempotence
-  - molecule side_effect
+  - molecule side-effect
   - molecule verify
   - molecule cleanup
   - molecule destroy
