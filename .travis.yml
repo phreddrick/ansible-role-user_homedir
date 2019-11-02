@@ -18,7 +18,19 @@ before_script:
 
 script:
   # Run tests
-  - molecule test
+  - molecule lint
+  - molecule dependency
+  - molecule cleanup
+  - molecle destroy
+  - molecule syntax
+  - molecule --debug create
+  - molecule prepare
+  - molecule converge
+  - molecule idempotence
+  - molecule side_effect
+  - molecule verify
+  - molecule cleanup
+  - molecule destroy
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications
