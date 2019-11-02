@@ -19,9 +19,9 @@ before_script:
 script:
   # Run tests
   - molecule lint
-  - molecule dependency
   - molecule cleanup
   - molecule destroy
+  - molecule dependency
   - molecule syntax
   - molecule create || /bin/true
   - molecule prepare
