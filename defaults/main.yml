@@ -31,4 +31,4 @@ location_bashrc: home
 # Name of molecule image to use in molecule function so we can easily run
 # molecule from the docker container without having a long complicated command
 # line.
-molecule_image: retr0h/molecule:latest
+molecule_image: quay.io/ansible/molecule:latest
