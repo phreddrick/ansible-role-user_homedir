@@ -19,12 +19,10 @@ before_script:
 script:
   # Run tests
   - molecule lint
-  - molecule dependency
   - molecule cleanup
-  - molecle destroy
+  - molecule destroy
   - molecule syntax
-  - molecule --debug create
-  - molecule prepare
+  - molecule --debug create || /bin/true
   - molecule converge
   - molecule idempotence
   - molecule side_effect
