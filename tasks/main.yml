@@ -31,6 +31,7 @@
     groups: "{{ grps }}"
     shell: /bin/bash
     password: "{{ user.password }}"
+    append: true
   when: create_account
 
 - name: "Make sure user {{ user.name }} exists"
