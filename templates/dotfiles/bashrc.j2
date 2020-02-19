@@ -77,7 +77,12 @@ if type -p go > /dev/null; then
 fi
 
 function molecule(){
-    docker run --rm -it -v $(pwd):/tmp/$(basename "${PWD}") -v /var/run/docker.sock:/var/run/docker.sock -w /tmp/$(basename "${PWD}") {{ molecule_image }}  sudo molecule "$@" 
+    docker pull {{ molecule_image }} > /dev/null 2>&1
+    if [ $1 = 'init' ]; then
+      docker run --rm -it -e HOME=/tmp --user $(id -u):$(id -g) -v $(pwd):/tmp/$(basename "${PWD}") -v /var/run/docker.sock:/var/run/docker.sock -w /tmp/$(basename "${PWD}") {{ molecule_image }}  sudo molecule "$@" 
+    else
+      docker run --rm -it -v $(pwd):/tmp/$(basename "${PWD}") -v /var/run/docker.sock:/var/run/docker.sock -w /tmp/$(basename "${PWD}") {{ molecule_image }}  sudo molecule "$@" 
+    fi
 }
 
 # Location specific aliases and functions
