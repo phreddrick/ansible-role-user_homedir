@@ -1,6 +1,8 @@
 ---
 dependency:
   name: galaxy
+  options:
+     role-file: molecule/resources/requirements.yml
 driver:
   name: docker
 platforms:
@@ -22,7 +24,8 @@ platforms:
       - golang
 provisioner:
   name: ansible
-scenario:
-  name: default
+  playbooks:
+    converge: ../resources/playbooks/converge.yml
+    verify: ../resources/playbooks/verify.yml
 verifier:
   name: ansible

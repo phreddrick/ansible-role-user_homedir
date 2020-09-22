@@ -1,6 +1,8 @@
 ---
 dependency:
   name: galaxy
+  options:
+    role-file: molecule/resources/requirements.yml
 driver:
   name: docker
 platforms:
@@ -98,6 +100,9 @@ platforms:
     pre_build_image: true
 provisioner:
   name: ansible
+  playbooks:
+    converge: ../resources/playbooks/converge.yml
+    verify: ../resources/playbooks/verify.yml
   inventory:
     host_vars:
       user_homedir_centos8:
