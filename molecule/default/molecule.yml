@@ -100,8 +100,10 @@ platforms:
     pre_build_image: true
 provisioner:
   name: ansible
-  lint:
-    name: ansible-lint
+  lint: |
+    set -e
+    yamllint .
+    ansible-lint
   inventory:
     host_vars:
       user_homedir_centos8:
