@@ -28,7 +28,7 @@ before_script:
 
 script:
   # Run tests
-  - molecule -s travis test
+  - molecule test -s travis
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications
