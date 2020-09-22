@@ -123,7 +123,5 @@ provisioner:
         ansible_python_interpreter: /usr/bin/python
       user_homedir_debianbuster:
         ansible_python_interpreter: /usr/bin/python3
-scenario:
-  name: default
 verifier:
   name: ansible

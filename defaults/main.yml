@@ -32,3 +32,4 @@ location_bashrc: home
 # molecule from the docker container without having a long complicated command
 # line.
 molecule_image: quay.io/ansible/molecule:latest
+molecule3_image: quay.io/ansible/molecule:3.0.8
