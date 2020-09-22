@@ -6,15 +6,15 @@ env:
   global:
     - ROLE_NAME: user-homedir
   matrix:
-    - MOLECULE_DISTROY: centos8
-    - MOLECULE_DISTROY: centos7
-    - MOLECULE_DISTROY: centos6
-    - MOLECULE_DISTROY: ubuntu2004
-    - MOLECULE_DISTROY: ubuntu1804
-    - MOLECULE_DISTROY: ubuntu1604
-    - MOLECULE_DISTROY: debian8
-    - MOLECULE_DISTROY: debian9
-    - MOLECULE_DISTROY: debian10
+    - MOLECULE_DISTRO: centos8
+    - MOLECULE_DISTRO: centos7
+    - MOLECULE_DISTRO: centos6
+    - MOLECULE_DISTRO: ubuntu2004
+    - MOLECULE_DISTRO: ubuntu1804
+    - MOLECULE_DISTRO: ubuntu1604
+    - MOLECULE_DISTRO: debian8
+    - MOLECULE_DISTRO: debian9
+    - MOLECULE_DISTRO: debian10
 
 install:
   # Install test dependencies
