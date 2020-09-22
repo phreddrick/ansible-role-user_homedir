@@ -1,27 +1,52 @@
 ---
 dependency:
   name: galaxy
+  options:
+    role-file: molecule/resources/requirements.yml
 driver:
   name: docker
-lint:
-  name: yamllint
 platforms:
   - name: user_homedir_centos8
-    image: "phreddrick/docker-centos8-ansible:latest"
+    image: "geerlingguy/docker-centos8-ansible:latest"
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
     pre_build_image: true
+  - name: golang_user_homedir_centos8
+    image: "geerlingguy/docker-centos8-ansible:latest"
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
+    groups:
+      - golang
   - name: user_homedir_centos7
-    image: "phreddrick/docker-centos7-ansible:latest"
+    image: "geerlingguy/docker-centos7-ansible:latest"
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
     pre_build_image: true
   - name: golang_user_homedir_centos7
-    image: "phreddrick/docker-centos7-ansible:latest"
+    image: "geerlingguy/docker-centos7-ansible:latest"
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
+    groups:
+      - golang
+  - name: user_homedir_ubuntu2004
+    image: "geerlingguy/docker-ubuntu2004-ansible:latest"
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
+  - name: golang_user_homedir_ubuntu2004
+    image: "geerlingguy/docker-ubuntu2004-ansible:latest"
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
@@ -30,14 +55,14 @@ platforms:
     groups:
       - golang
   - name: user_homedir_ubuntu1804
-    image: "phreddrick/docker-ubuntu1804-ansible:latest"
+    image: "geerlingguy/docker-ubuntu1804-ansible:latest"
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
     pre_build_image: true
   - name: golang_user_homedir_ubuntu1804
-    image: "phreddrick/docker-ubuntu1804-ansible:latest"
+    image: "geerlingguy/docker-ubuntu1804-ansible:latest"
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
@@ -46,48 +71,99 @@ platforms:
     groups:
       - golang
   - name: user_homedir_ubuntu1604
-    image: "phreddrick/docker-ubuntu1604-ansible:latest"
+    image: "geerlingguy/docker-ubuntu1604-ansible:latest"
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
     pre_build_image: true
-  - name: user_homedir_debianjessie
-    image: "phreddrick/docker-debian8-ansible:latest"
+  - name: golang_user_homedir_ubuntu1604
+    image: "geerlingguy/docker-ubuntu1604-ansible:latest"
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
     pre_build_image: true
-  - name: user_homedir_debianstretch
-    image: "phreddrick/docker-debian9-ansible:latest"
+    groups:
+      - golang
+  - name: user_homedir_debian8
+    image: "geerlingguy/docker-debian8-ansible:latest"
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
     pre_build_image: true
-  - name: user_homedir_debianbuster
-    image: "phreddrick/docker-debian10-ansible:latest"
+  - name: golang_user_homedir_debian8
+    image: "geerlingguy/docker-debian8-ansible:latest"
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
     pre_build_image: true
+    groups:
+      - golang
+  - name: user_homedir_debian9
+    image: "geerlingguy/docker-debian9-ansible:latest"
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
+  - name: golang_user_homedir_debian9
+    image: "geerlingguy/docker-debian9-ansible:latest"
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
+    groups:
+      - golang
+  - name: user_homedir_debian10
+    image: "geerlingguy/docker-debian10-ansible:latest"
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
+  - name: golang_user_homedir_debian10
+    image: "geerlingguy/docker-debian10-ansible:latest"
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
+    groups:
+      - golang
 provisioner:
   name: ansible
-  lint:
-    name: ansible-lint
+  playbooks:
+    converge: ../resources/playbooks/converge.yml
+    verify: ../resources/playbooks/verify.yml
   inventory:
     host_vars:
       user_homedir_centos8:
+        ansible_python_interpreter: /usr/bin/python3
+      golang_user_homedir_centos8:
         ansible_python_interpreter: /usr/bin/python3
       user_homedir_ubuntu1804:
         ansible_python_interpreter: /usr/bin/python3
       golang_user_homedir_ubuntu1804:
         ansible_python_interpreter: /usr/bin/python3
-scenario:
-  name: default
+      user_homedir_ubuntu2004:
+        ansible_python_interpreter: /usr/bin/python3
+      golang_user_homedir_ubuntu2004:
+        ansible_python_interpreter: /usr/bin/python3
+      user_homedir_debian8:
+        ansible_python_interpreter: /usr/bin/python
+      golang_user_homedir_debian8:
+        ansible_python_interpreter: /usr/bin/python
+      user_homedir_debian9:
+        ansible_python_interpreter: /usr/bin/python
+      golang_user_homedir_debian9:
+        ansible_python_interpreter: /usr/bin/python
+      user_homedir_debian10:
+        ansible_python_interpreter: /usr/bin/python3
+      golang_user_homedir_debian10:
+        ansible_python_interpreter: /usr/bin/python3
 verifier:
-  name: testinfra
-  lint:
-    name: flake8
+  name: ansible

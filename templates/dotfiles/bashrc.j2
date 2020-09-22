@@ -85,6 +85,15 @@ function molecule(){
     fi
 }
 
+function molecule3(){
+    docker pull {{ molecule3_image }} > /dev/null 2>&1
+    if [ $1 = 'init' ]; then
+      docker run --rm -it -e HOME=/tmp --user $(id -u):$(id -g) -v $(pwd):/tmp/$(basename "${PWD}") -v /var/run/docker.sock:/var/run/docker.sock -w /tmp/$(basename "${PWD}") {{ molecule3_image }}  sudo molecule "$@" 
+    else
+      docker run --rm -it -v $(pwd):/tmp/$(basename "${PWD}") -v /var/run/docker.sock:/var/run/docker.sock -w /tmp/$(basename "${PWD}") {{ molecule3_image }}  sudo molecule "$@" 
+    fi
+}
+
 # Location specific aliases and functions
 if [[ -e $HOME/.bashrc_{{ location_bashrc }} ]]; then
   source $HOME/.bashrc_{{ location_bashrc }}

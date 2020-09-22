@@ -5,6 +5,16 @@ services: docker
 env:
   global:
     - ROLE_NAME: user-homedir
+  matrix:
+    - MOLECULE_DISTRO: centos8
+    - MOLECULE_DISTRO: centos7
+    - MOLECULE_DISTRO: centos6
+    - MOLECULE_DISTRO: ubuntu2004
+    - MOLECULE_DISTRO: ubuntu1804
+    - MOLECULE_DISTRO: ubuntu1604
+    - MOLECULE_DISTRO: debian8
+    - MOLECULE_DISTRO: debian9
+    - MOLECULE_DISTRO: debian10
 
 install:
   # Install test dependencies
@@ -18,19 +28,7 @@ before_script:
 
 script:
   # Run tests
-  - molecule lint
-  - molecule cleanup
-  - molecule destroy
-  - molecule dependency
-  - molecule syntax
-  - molecule create || /bin/true
-  - molecule prepare
-  - molecule converge
-  - molecule idempotence
-  - molecule side-effect
-  - molecule verify
-  - molecule cleanup
-  - molecule destroy
+  - molecule test -s jobs
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications
