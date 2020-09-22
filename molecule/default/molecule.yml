@@ -3,10 +3,6 @@ dependency:
   name: galaxy
 driver:
   name: docker
-# lint: |
-#     set -e
-#     yamllint .
-#     ansible-lint
 platforms:
   - name: user_homedir_centos8
     image: "geerlingguy/docker-centos8-ansible:latest"
@@ -102,8 +98,6 @@ platforms:
     pre_build_image: true
 provisioner:
   name: ansible
-  # lint:
-  #   name: ansible-lint
   inventory:
     host_vars:
       user_homedir_centos8:
