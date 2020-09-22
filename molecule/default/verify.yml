@@ -1,8 +1,6 @@
 ---
-- name: Converge
+- name: Verify
   hosts: all
-  roles:
-    - role: phreddrick.user-homedir
   tasks:
     - name: Stat all dotfiles created
       stat:
@@ -49,11 +47,8 @@
       with_items: "{{ check_scripts.results }}"
       when: not item.stat.exists or item.stat.pw_name != 'tryme' or item.stat.gr_name != 'tryme'
 
-- name: Converge Go
+- name: Verify Go
   hosts: golang
-  roles:
-    - role: gantsign.golang
-      golang_gopath: '$HOME/workspace-go'
   tasks:
     - name: "explicitly source /home/tryme/.bashrc"
       shell: source /etc/profile && source /home/tryme/.bashrc && ls /home/tryme/workspace-go

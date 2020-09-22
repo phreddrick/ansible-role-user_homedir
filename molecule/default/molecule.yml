@@ -3,12 +3,10 @@ dependency:
   name: galaxy
 driver:
   name: docker
-lint: |
-    set -e
-    yamllint .
-    ansible-lint
-# lint:
-#   name: yamllint
+# lint: |
+#     set -e
+#     yamllint .
+#     ansible-lint
 platforms:
   - name: user_homedir_centos8
     image: "geerlingguy/docker-centos8-ansible:latest"
@@ -120,11 +118,13 @@ provisioner:
         ansible_python_interpreter: /usr/bin/python3
       golang_user_homedir_ubuntu2004:
         ansible_python_interpreter: /usr/bin/python3
+      user_homedir_debianjessie:
+        ansible_python_interpreter: /usr/bin/python
+      user_homedir_debianstretch:
+        ansible_python_interpreter: /usr/bin/python
       user_homedir_debianbuster:
         ansible_python_interpreter: /usr/bin/python3
 scenario:
   name: default
 verifier:
-  name: testinfra
-  lint:
-    name: flake8
+  name: ansible
