@@ -6,14 +6,14 @@ dependency:
 driver:
   name: docker
 platforms:
-  - name: instance
+  - name: "user_homedir_${MOLECULE_DISTRO:-centos7}"
     image: "geerlingguy/docker-${MOLECULE_DISTRO:-centos7}-ansible:latest"
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
     pre_build_image: true
-  - name: golang_instance
+  - name: "golang_user_homedir_${MOLECULE_DISTRO:-centos7}"
     image: "geerlingguy/docker-${MOLECULE_DISTRO:-centos7}-ansible:latest"
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
@@ -27,5 +27,31 @@ provisioner:
   playbooks:
     converge: ../resources/playbooks/converge.yml
     verify: ../resources/playbooks/verify.yml
+  inventory:
+    host_vars:
+      user_homedir_centos8:
+        ansible_python_interpreter: /usr/bin/python3
+      golang_user_homedir_centos8:
+        ansible_python_interpreter: /usr/bin/python3
+      user_homedir_ubuntu1804:
+        ansible_python_interpreter: /usr/bin/python3
+      golang_user_homedir_ubuntu1804:
+        ansible_python_interpreter: /usr/bin/python3
+      user_homedir_ubuntu2004:
+        ansible_python_interpreter: /usr/bin/python3
+      golang_user_homedir_ubuntu2004:
+        ansible_python_interpreter: /usr/bin/python3
+      user_homedir_debian8:
+        ansible_python_interpreter: /usr/bin/python
+      golang_user_homedir_debian8:
+        ansible_python_interpreter: /usr/bin/python
+      user_homedir_debian9:
+        ansible_python_interpreter: /usr/bin/python
+      golang_user_homedir_debian9:
+        ansible_python_interpreter: /usr/bin/python
+      user_homedir_debian10:
+        ansible_python_interpreter: /usr/bin/python3
+      golang_user_homedir_debian10:
+        ansible_python_interpreter: /usr/bin/python3
 verifier:
   name: ansible

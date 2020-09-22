@@ -77,27 +77,63 @@ platforms:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
     pre_build_image: true
-  - name: user_homedir_debianjessie
+  - name: golang_user_homedir_ubuntu1604
+    image: "geerlingguy/docker-ubuntu1604-ansible:latest"
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
+    groups:
+      - golang
+  - name: user_homedir_debian8
     image: "geerlingguy/docker-debian8-ansible:latest"
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
     pre_build_image: true
-  - name: user_homedir_debianstretch
+  - name: golang_user_homedir_debian8
+    image: "geerlingguy/docker-debian8-ansible:latest"
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
+    groups:
+      - golang
+  - name: user_homedir_debian9
     image: "geerlingguy/docker-debian9-ansible:latest"
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
     pre_build_image: true
-  - name: user_homedir_debianbuster
+  - name: golang_user_homedir_debian9
+    image: "geerlingguy/docker-debian9-ansible:latest"
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
+    groups:
+      - golang
+  - name: user_homedir_debian10
     image: "geerlingguy/docker-debian10-ansible:latest"
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
     pre_build_image: true
+  - name: golang_user_homedir_debian10
+    image: "geerlingguy/docker-debian10-ansible:latest"
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
+    groups:
+      - golang
 provisioner:
   name: ansible
   playbooks:
@@ -117,11 +153,17 @@ provisioner:
         ansible_python_interpreter: /usr/bin/python3
       golang_user_homedir_ubuntu2004:
         ansible_python_interpreter: /usr/bin/python3
-      user_homedir_debianjessie:
+      user_homedir_debian8:
         ansible_python_interpreter: /usr/bin/python
-      user_homedir_debianstretch:
+      golang_user_homedir_debian8:
         ansible_python_interpreter: /usr/bin/python
-      user_homedir_debianbuster:
+      user_homedir_debian9:
+        ansible_python_interpreter: /usr/bin/python
+      golang_user_homedir_debian9:
+        ansible_python_interpreter: /usr/bin/python
+      user_homedir_debian10:
+        ansible_python_interpreter: /usr/bin/python3
+      golang_user_homedir_debian10:
         ansible_python_interpreter: /usr/bin/python3
 verifier:
   name: ansible
