@@ -3,6 +3,8 @@ Ansible Role: user_homedir
 
 [![CI](https://github.com/phreddrick/ansible-role-user_homedir/workflows/CI/badge.svg?event=push)](https://github.com/phreddrick/ansible-role-user_homedir/actions?query=workflow%3ACI)
 
+[![Release](https://github.com/phreddrick/ansible-role-user_homedir/actions/workflows/release.yml/badge.svg)](https://github.com/phreddrick/ansible-role-user_homedir/actions/workflows/release.yml)
+
 Create a user on the system complete with a nice set of bash dotfiles
 
 Requirements
