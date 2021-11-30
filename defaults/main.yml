@@ -1,5 +1,5 @@
 ---
-# defaults file for user-homedir
+# defaults file for user_homedir
 
 # Should we create the user account?  Defaults to true
 create_account: true
@@ -31,5 +31,5 @@ location_bashrc: home
 # Name of molecule image to use in molecule function so we can easily run
 # molecule from the docker container without having a long complicated command
 # line.
-molecule_image: quay.io/ansible/molecule:latest
-molecule3_image: quay.io/ansible/molecule:3.0.8
+molecule_image: quay.io/ansible/toolset:latest
+molecule3_image: quay.io/ansible/toolset:latest

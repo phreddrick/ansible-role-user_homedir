@@ -81,7 +81,14 @@ function molecule(){
     if [ $1 = 'init' ]; then
       docker run --rm -it -e HOME=/tmp --user $(id -u):$(id -g) -v $(pwd):/tmp/$(basename "${PWD}") -v /var/run/docker.sock:/var/run/docker.sock -w /tmp/$(basename "${PWD}") {{ molecule_image }}  sudo molecule "$@" 
     else
-      docker run --rm -it -v $(pwd):/tmp/$(basename "${PWD}") -v /var/run/docker.sock:/var/run/docker.sock -w /tmp/$(basename "${PWD}") {{ molecule_image }}  sudo molecule "$@" 
+      molecule_env=""
+      for v in $(env | grep '^MOLECULE_'); do
+        molecule_env="$molecule_env -e $v"
+      done
+      if [ -n "$molecule_env" ]; then
+        molecule_env=" $molecule_env"
+      fi
+      docker run --rm -it${molecule_env} -v $(pwd):/tmp/$(basename "${PWD}") -v /var/run/docker.sock:/var/run/docker.sock -w /tmp/$(basename "${PWD}") {{ molecule_image }}  molecule "$@" 
     fi
 }
 
@@ -90,7 +97,14 @@ function molecule3(){
     if [ $1 = 'init' ]; then
       docker run --rm -it -e HOME=/tmp --user $(id -u):$(id -g) -v $(pwd):/tmp/$(basename "${PWD}") -v /var/run/docker.sock:/var/run/docker.sock -w /tmp/$(basename "${PWD}") {{ molecule3_image }}  sudo molecule "$@" 
     else
-      docker run --rm -it -v $(pwd):/tmp/$(basename "${PWD}") -v /var/run/docker.sock:/var/run/docker.sock -w /tmp/$(basename "${PWD}") {{ molecule3_image }}  sudo molecule "$@" 
+      molecule_env=""
+      for v in $(env | grep '^MOLECULE_'); do
+        molecule_env="$molecule_env -e $v"
+      done
+      if [ -n "$molecule_env" ]; then
+        molecule_env=" $molecule_env"
+      fi
+      docker run --rm -it${molecule_env} -v $(pwd):/tmp/$(basename "${PWD}") -v /var/run/docker.sock:/var/run/docker.sock -w /tmp/$(basename "${PWD}") {{ molecule3_image }}  molecule "$@" 
     fi
 }
 

@@ -2,7 +2,7 @@
 - name: Converge
   hosts: all
   roles:
-    - role: phreddrick.user-homedir
+    - role: phreddrick.user_homedir
 
 - name: Converge Go
   hosts: golang

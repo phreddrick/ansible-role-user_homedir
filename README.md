@@ -1,7 +1,7 @@
-Ansible Role: user-homedir
+Ansible Role: user_homedir
 =========
 
-[![Build Status](https://travis-ci.org/phreddrick/ansible-role-user-homedir.svg?branch=master)](https://travis-ci.org/phreddrick/ansible-role-user-homedir)
+[![CI](https://github.com/phreddrick/ansible-role-user_homedir/workflows/CI/badge.svg?event=push)](https://github.com/phreddrick/ansible-role-user_homedir/actions?query=workflow%3ACI)
 
 Create a user on the system complete with a nice set of bash dotfiles
 
@@ -61,7 +61,7 @@ passed in as parameters) is always nice for users too:
 ```yaml
 - hosts: servers
   roles:
-    - role: phreddrick.user-homedir
+    - role: phreddrick.user_homedir
       create_account: true
       user:
         name: auser
