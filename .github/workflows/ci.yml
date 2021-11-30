@@ -11,7 +11,7 @@ name: CI
 
 defaults:
   run:
-    working-directory: 'phreddrick.user-homedir'
+    working-directory: 'phreddrick.user_homedir'
 
 jobs:
 
@@ -22,7 +22,7 @@ jobs:
       - name: Check out the codebase.
         uses: actions/checkout@v2
         with:
-          path: 'phreddrick.user-homedir'
+          path: 'phreddrick.user_homedir'
 
       - name: Set up Python 3.
         uses: actions/setup-python@v2
@@ -54,7 +54,7 @@ jobs:
       - name: Check out the codebase.
         uses: actions/checkout@v2
         with:
-          path: 'phreddrick.user-homedir'
+          path: 'phreddrick.user_homedir'
 
       - name: Set up Python 3.
         uses: actions/setup-python@v2

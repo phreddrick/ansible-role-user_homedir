@@ -1,5 +1,5 @@
 ---
-# defaults file for user-homedir
+# defaults file for user_homedir
 
 # Should we create the user account?  Defaults to true
 create_account: true
